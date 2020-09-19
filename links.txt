@@ -1,0 +1,23 @@
+
+Clojure programming language
+https://clojure.org/guides/getting_started
+https://clojure.org/api/cheatsheet
+https://www.braveclojure.com/clojure-for-the-brave-and-true/
+
+Poker hands
+https://en.wikipedia.org/wiki/List_of_poker_hands
+https://en.wikipedia.org/wiki/Standard_52-card_deck
+
+Visual Studio Code plugins
+- Live Share
+	https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
+	https://docs.microsoft.com/en-us/visualstudio/liveshare/use/vscode#installation
+- Calva: Clojure support for VS Code
+	https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva
+- Parinfer: inserts parenthesis automatically based on indent
+	https://marketplace.visualstudio.com/items?itemName=shaunlebron.vscode-parinfer
+	https://shaunlebron.github.io/parinfer/
+	(vscode-parinfer has some rough edges; IntelliJ IDEA's Cursive has better Parinfer support)
+
+This project template
+https://github.com/luontola/new-clojure-project
