@@ -42,7 +42,12 @@
   (testing "human plays scissors"
     (is (= :computer (winner :scissors :rock)))
     (is (= :human (winner :scissors :paper)))
-    (is (= :draw (winner :scissors :scissors)))))
+    (is (= :draw (winner :scissors :scissors))))
+
+  (testing "invalid input"
+    (is (thrown-with-msg?
+         IllegalArgumentException #"\QIllegal hands: [:foo :bar]\E"
+         (winner :foo :bar)))))
 
 (deftest lizard-spock-test
   (testing "human plays lizard"
