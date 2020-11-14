@@ -19,13 +19,18 @@
                [winner winner] (constantly :draw)}))
        (apply merge)))
 
-(defn winner [human-hand computer-hand]
-  (let [players [:human :computer]
-        hands [human-hand computer-hand]
-        select-winner (or (rules hands)
-                          (throw (IllegalArgumentException.
-                                  (str "Illegal hands: " hands))))]
-    (select-winner players)))
+(defn winner
+  ([human-hand computer-hand]
+   (winner :human human-hand
+           :computer computer-hand))
+  ([player1 hand1
+    player2 hand2]
+   (let [players [player1 player2]
+         hands [hand1 hand2]
+         select-winner (or (rules hands)
+                           (throw (IllegalArgumentException.
+                                   (str "Illegal hands: " hands))))]
+     (select-winner players))))
 
 
 (deftest rock-paper-scissors-test
