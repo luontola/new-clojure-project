@@ -1,19 +1,18 @@
 (ns my-project.core-test
-  (:require [clojure.test :refer [deftest is testing]]
-            [my-project.core :as core]))
+  (:require [clojure.test :refer [deftest is testing]]))
 
 (def rules
-  (->> [[:rock :scissors]
-        [:rock :lizard]
-        [:paper :rock]
-        [:paper :spock]
-        [:scissors :paper]
-        [:scissors :lizard]
-        [:lizard :paper]
-        [:lizard :spock]
-        [:spock :rock]
-        [:spock :scissors]]
-       (map (fn [[winner loser]]
+  (->> [[:rock "crushes" :scissors]
+        [:rock "crushes" :lizard]
+        [:paper "covers" :rock]
+        [:paper "disproves" :spock]
+        [:scissors "cuts" :paper]
+        [:scissors "decapitates" :lizard]
+        [:lizard "eats" :paper]
+        [:lizard "poisons" :spock]
+        [:spock "vaporizes" :rock]
+        [:spock "smashes" :scissors]]
+       (map (fn [[winner _ loser]]
               {[winner loser] first
                [loser winner] second
                [winner winner] (constantly :draw)}))
