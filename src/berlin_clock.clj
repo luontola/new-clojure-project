@@ -36,3 +36,23 @@
        (time->1-hours time)
        (time->5-minutes time)
        (time->1-minutes time)))
+
+(defn- light-on? [light]
+  (not= \O light))
+
+(defn- count-lights [lights]
+  (count (filter light-on? lights)))
+
+(defn berlin-clock->time [^String lights]
+  (let [[lights-seconds lights] (split-at (count mask-seconds) lights)
+        [lights-5-hours lights] (split-at (count mask-5-hours) lights)
+        [lights-1-hours lights] (split-at (count mask-1-hours) lights)
+        [lights-5-minutes lights] (split-at (count mask-5-minutes) lights)
+        [lights-1-minutes _] (split-at (count mask-1-minutes) lights)]
+    (LocalTime/of (+ (* 5 (count-lights lights-5-hours))
+                     (count-lights lights-1-hours))
+                  (+ (* 5 (count-lights lights-5-minutes))
+                     (count-lights lights-1-minutes))
+                  (case (count-lights lights-seconds)
+                    0 1
+                    1 0))))
