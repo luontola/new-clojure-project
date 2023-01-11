@@ -26,14 +26,14 @@
 (defn time->5-hours [^LocalTime time]
   (lights mask-5-hours (int (/ (.getHour time) 5))))
 
-(defn- seconds-fixup [n]
+(defn- seconds-invert [n]
   (case n
     0 1
     1 0))
 
 (def mask-seconds "Y")
 (defn time->seconds [^LocalTime time]
-  (lights mask-seconds (seconds-fixup (mod (.getSecond time) 2))))
+  (lights mask-seconds (seconds-invert (mod (.getSecond time) 2))))
 
 (defn time->berlin-clock [^LocalTime time]
   (str (time->seconds time)
@@ -58,5 +58,5 @@
                  (count-lights lights-1-hours))
         minutes (+ (* 5 (count-lights lights-5-minutes))
                    (count-lights lights-1-minutes))
-        seconds (seconds-fixup (count-lights lights-seconds))]
+        seconds (seconds-invert (count-lights lights-seconds))]
     (LocalTime/of hours minutes seconds)))
