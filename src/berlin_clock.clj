@@ -1,39 +1,44 @@
 (ns berlin-clock
   (:import (java.time LocalTime)))
 
-(def lights-off (repeat \O))
+(def lamps-off (repeat \O))
 
-(defn lights [mask n]
-  (let [lights-count (count mask)
-        lights-on (take n mask)]
-    (->> (concat lights-on lights-off)
-         (take lights-count)
+(defn light-lamps [lamps num-lights]
+  (let [lamps-count (count lamps)
+        lamps-on (take num-lights lamps)]
+    (->> (concat lamps-on lamps-off)
+         (take lamps-count)
          (apply str))))
 
-(def mask-1-minutes "YYYY")
+(def lamps-1-minutes "YYYY")
 (defn time->1-minutes [^LocalTime time]
-  (lights mask-1-minutes (mod (.getMinute time) 5)))
+  (light-lamps lamps-1-minutes (mod (.getMinute time)
+                                    5)))
 
-(def mask-5-minutes "YYRYYRYYRYY")
+(def lamps-5-minutes "YYRYYRYYRYY")
 (defn time->5-minutes [^LocalTime time]
-  (lights mask-5-minutes (int (/ (.getMinute time) 5))))
+  (light-lamps lamps-5-minutes (int (/ (.getMinute time)
+                                       5))))
 
-(def mask-1-hours "RRRR")
+(def lamps-1-hours "RRRR")
 (defn time->1-hours [^LocalTime time]
-  (lights mask-1-hours (mod (.getHour time) 5)))
+  (light-lamps lamps-1-hours (mod (.getHour time)
+                                  5)))
 
-(def mask-5-hours "RRRR")
+(def lamps-5-hours "RRRR")
 (defn time->5-hours [^LocalTime time]
-  (lights mask-5-hours (int (/ (.getHour time) 5))))
+  (light-lamps lamps-5-hours (int (/ (.getHour time)
+                                     5))))
 
-(defn- seconds-invert [n]
+(defn- invert-seconds [n]
   (case n
     0 1
     1 0))
 
-(def mask-seconds "Y")
+(def lamps-seconds "Y")
 (defn time->seconds [^LocalTime time]
-  (lights mask-seconds (seconds-invert (mod (.getSecond time) 2))))
+  (light-lamps lamps-seconds (invert-seconds (mod (.getSecond time)
+                                                  2))))
 
 (defn time->berlin-clock [^LocalTime time]
   (str (time->seconds time)
@@ -42,21 +47,21 @@
        (time->5-minutes time)
        (time->1-minutes time)))
 
-(defn- light-on? [light]
-  (not= \O light))
+(defn- lit? [lamp]
+  (not= \O lamp))
 
-(defn- count-lights [lights]
-  (count (filter light-on? lights)))
+(defn- count-lights [lamps]
+  (count (filter lit? lamps)))
 
-(defn berlin-clock->time [^String lights]
-  (let [[lights-seconds lights] (split-at (count mask-seconds) lights)
-        [lights-5-hours lights] (split-at (count mask-5-hours) lights)
-        [lights-1-hours lights] (split-at (count mask-1-hours) lights)
-        [lights-5-minutes lights] (split-at (count mask-5-minutes) lights)
-        [lights-1-minutes _] (split-at (count mask-1-minutes) lights)
-        hours (+ (* 5 (count-lights lights-5-hours))
-                 (count-lights lights-1-hours))
-        minutes (+ (* 5 (count-lights lights-5-minutes))
-                   (count-lights lights-1-minutes))
-        seconds (seconds-invert (count-lights lights-seconds))]
+(defn berlin-clock->time [lamps]
+  (let [[lamps-seconds lamps] (split-at (count lamps-seconds) lamps)
+        [lamps-5-hours lamps] (split-at (count lamps-5-hours) lamps)
+        [lamps-1-hours lamps] (split-at (count lamps-1-hours) lamps)
+        [lamps-5-minutes lamps] (split-at (count lamps-5-minutes) lamps)
+        [lamps-1-minutes _lamps] (split-at (count lamps-1-minutes) lamps)
+        hours (+ (* 5 (count-lights lamps-5-hours))
+                 (count-lights lamps-1-hours))
+        minutes (+ (* 5 (count-lights lamps-5-minutes))
+                   (count-lights lamps-1-minutes))
+        seconds (invert-seconds (count-lights lamps-seconds))]
     (LocalTime/of hours minutes seconds)))
