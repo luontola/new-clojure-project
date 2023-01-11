@@ -3,9 +3,9 @@
 
 (def lights-off (repeat \O))
 
-(defn lights [colors n]
-  (let [lights-count (count colors)
-        lights-on (take n colors)]
+(defn lights [mask n]
+  (let [lights-count (count mask)
+        lights-on (take n mask)]
     (->> (concat lights-on lights-off)
          (take lights-count)
          (apply str))))
