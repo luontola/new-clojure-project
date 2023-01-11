@@ -1,7 +1,13 @@
 (ns berlin-clock-test
-  (:require [berlin-clock]
-            [clojure.test :refer [deftest is testing]]))
+  (:require [berlin-clock :as bc]
+            [clojure.test :refer [deftest is]])
+  (:import (java.time LocalTime)))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest time->1-minutes-test
+  (is (= "OOOO" (bc/time->1-minutes (LocalTime/of 0 0 0))))
+  (is (= "YYYY" (bc/time->1-minutes (LocalTime/of 23 59 59))))
+  (is (= "YOOO" (bc/time->1-minutes (LocalTime/of 12 31 0))))
+  (is (= "YYOO" (bc/time->1-minutes (LocalTime/of 12 32 0))))
+  (is (= "YYYO" (bc/time->1-minutes (LocalTime/of 12 33 0))))
+  (is (= "YYYY" (bc/time->1-minutes (LocalTime/of 12 34 0))))
+  (is (= "OOOO" (bc/time->1-minutes (LocalTime/of 12 35 0)))))
