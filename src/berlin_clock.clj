@@ -48,11 +48,12 @@
         [lights-5-hours lights] (split-at (count mask-5-hours) lights)
         [lights-1-hours lights] (split-at (count mask-1-hours) lights)
         [lights-5-minutes lights] (split-at (count mask-5-minutes) lights)
-        [lights-1-minutes _] (split-at (count mask-1-minutes) lights)]
-    (LocalTime/of (+ (* 5 (count-lights lights-5-hours))
-                     (count-lights lights-1-hours))
-                  (+ (* 5 (count-lights lights-5-minutes))
-                     (count-lights lights-1-minutes))
-                  (case (count-lights lights-seconds)
-                    0 1
-                    1 0))))
+        [lights-1-minutes _] (split-at (count mask-1-minutes) lights)
+        hours (+ (* 5 (count-lights lights-5-hours))
+                 (count-lights lights-1-hours))
+        minutes (+ (* 5 (count-lights lights-5-minutes))
+                   (count-lights lights-1-minutes))
+        seconds (case (count-lights lights-seconds)
+                  0 1
+                  1 0)]
+    (LocalTime/of hours minutes seconds)))
