@@ -10,20 +10,25 @@
          (take lights-count)
          (apply str))))
 
+(def mask-1-minutes "YYYY")
 (defn time->1-minutes [^LocalTime time]
-  (lights "YYYY" (mod (.getMinute time) 5)))
+  (lights mask-1-minutes (mod (.getMinute time) 5)))
 
+(def mask-5-minutes "YYRYYRYYRYY")
 (defn time->5-minutes [^LocalTime time]
-  (lights "YYRYYRYYRYY" (int (/ (.getMinute time) 5))))
+  (lights mask-5-minutes (int (/ (.getMinute time) 5))))
 
+(def mask-1-hours "RRRR")
 (defn time->1-hours [^LocalTime time]
-  (lights "RRRR" (mod (.getHour time) 5)))
+  (lights mask-1-hours (mod (.getHour time) 5)))
 
+(def mask-5-hours "RRRR")
 (defn time->5-hours [^LocalTime time]
-  (lights "RRRR" (int (/ (.getHour time) 5))))
+  (lights mask-5-hours (int (/ (.getHour time) 5))))
 
+(def mask-seconds "Y")
 (defn time->seconds [^LocalTime time]
-  (lights "Y" (mod (inc (.getSecond time)) 2)))
+  (lights mask-seconds (mod (inc (.getSecond time)) 2)))
 
 (defn time->berlin-clock [^LocalTime time]
   (str (time->seconds time)
