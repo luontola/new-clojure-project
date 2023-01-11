@@ -31,3 +31,12 @@
                          ["RRRR" (LocalTime/of 14 35 0)]]]
     (is (= lights (bc/time->1-hours time))
         (str time))))
+
+(deftest time->5-hours-test
+  (doseq [[lights time] [["OOOO" (LocalTime/of 0 0 0)]
+                         ["RRRR" (LocalTime/of 23 59 59)]
+                         ["OOOO" (LocalTime/of 2 4 0)]
+                         ["ROOO" (LocalTime/of 8 23 0)]
+                         ["RRRO" (LocalTime/of 16 35 0)]]]
+    (is (= lights (bc/time->5-hours time))
+        (str time))))
