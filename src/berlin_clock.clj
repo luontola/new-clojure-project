@@ -15,4 +15,8 @@
 
 (defn time->5-minutes [^LocalTime time]
   (lights "YYRYYRYYRYY" (int (/ (.getMinute time) 5))))
+
+(defn time->1-hours [^LocalTime time]
+  (lights "RRRR" (mod (.getHour time) 5)))
+
   
