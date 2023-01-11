@@ -46,3 +46,11 @@
                          ["O" (LocalTime/of 23 59 59)]]]
     (is (= lights (bc/time->seconds time))
         (str time))))
+
+(deftest time->berlin-clock-test
+  (doseq [[lights time] [["YOOOOOOOOOOOOOOOOOOOOOOO" (LocalTime/of 0 0 0)]
+                         ["ORRRRRRROYYRYYRYYRYYYYYY" (LocalTime/of 23 59 59)]
+                         ["YRRROROOOYYRYYRYYRYOOOOO" (LocalTime/of 16 50 6)]
+                         ["ORROOROOOYYRYYRYOOOOYYOO" (LocalTime/of 11 37 01)]]]
+    (is (= lights (bc/time->berlin-clock time))
+        (str time))))

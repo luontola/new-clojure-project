@@ -24,3 +24,10 @@
 
 (defn time->seconds [^LocalTime time]
   (lights "Y" (mod (inc (.getSecond time)) 2)))
+
+(defn time->berlin-clock [^LocalTime time]
+  (str (time->seconds time)
+       (time->5-hours time)
+       (time->1-hours time)
+       (time->5-minutes time)
+       (time->1-minutes time)))
