@@ -13,23 +13,23 @@
 
 (def all-1-minute-lamps "YYYY")
 (defn time->1-minute-lamps [^LocalTime time]
-  (light-lamps all-1-minute-lamps (mod (.getMinute time)
+  (light-lamps all-1-minute-lamps (rem (.getMinute time)
                                        5)))
 
 (def all-5-minute-lamps "YYRYYRYYRYY")
 (defn time->5-minute-lamps [^LocalTime time]
-  (light-lamps all-5-minute-lamps (int (/ (.getMinute time)
-                                          5))))
+  (light-lamps all-5-minute-lamps (quot (.getMinute time)
+                                        5)))
 
 (def all-1-hour-lamps "RRRR")
 (defn time->1-hour-lamps [^LocalTime time]
-  (light-lamps all-1-hour-lamps (mod (.getHour time)
+  (light-lamps all-1-hour-lamps (rem (.getHour time)
                                      5)))
 
 (def all-5-hour-lamps "RRRR")
 (defn time->5-hour-lamps [^LocalTime time]
-  (light-lamps all-5-hour-lamps (int (/ (.getHour time)
-                                        5))))
+  (light-lamps all-5-hour-lamps (quot (.getHour time)
+                                      5)))
 
 (defn- invert-seconds [n]
   (case n
@@ -38,7 +38,7 @@
 
 (def all-1-second-lamps "Y")
 (defn time->1-second-lamps [^LocalTime time]
-  (light-lamps all-1-second-lamps (invert-seconds (mod (.getSecond time)
+  (light-lamps all-1-second-lamps (invert-seconds (rem (.getSecond time)
                                                        2))))
 
 (defn time->berlin-clock [^LocalTime time]
