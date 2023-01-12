@@ -1,6 +1,6 @@
-# Empty Clojure Project
-
-Something to get quickly started with Clojure for a code kata or similar.
+# Berlin Clock Kata in Clojure
+                              
+An implementation of https://agilekatas.co.uk/katas/BerlinClock-Kata
 
 ## Requirements
 
