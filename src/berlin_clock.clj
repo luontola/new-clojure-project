@@ -1,7 +1,8 @@
 (ns berlin-clock
   (:import (java.time LocalTime)))
 
-(def lamps-off (repeat \O))
+(def lamp-off \O)
+(def lamps-off (repeat lamp-off))
 
 (defn light-lamps [all-lamps num-lights]
   (let [num-lamps (count all-lamps)
@@ -48,7 +49,7 @@
        (time->1-minute-lamps time)))
 
 (defn- lit? [lamp]
-  (not= \O lamp))
+  (not= lamp-off lamp))
 
 (defn- num-lights [lamps]
   (count (filter lit? lamps)))
