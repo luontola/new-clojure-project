@@ -4,10 +4,10 @@
 (def lamps-off (repeat \O))
 
 (defn light-lamps [lamps num-lights]
-  (let [lamps-count (count lamps)
+  (let [num-lamps (count lamps)
         lamps-on (take num-lights lamps)]
     (->> (concat lamps-on lamps-off)
-         (take lamps-count)
+         (take num-lamps)
          (apply str))))
 
 (def lamps-1-minutes "YYYY")
@@ -50,7 +50,7 @@
 (defn- lit? [lamp]
   (not= \O lamp))
 
-(defn- count-lights [lamps]
+(defn- num-lights [lamps]
   (count (filter lit? lamps)))
 
 (defn berlin-clock->time [lamps]
@@ -59,9 +59,9 @@
         [lamps-1-hours lamps] (split-at (count lamps-1-hours) lamps)
         [lamps-5-minutes lamps] (split-at (count lamps-5-minutes) lamps)
         [lamps-1-minutes _lamps] (split-at (count lamps-1-minutes) lamps)
-        hours (+ (* 5 (count-lights lamps-5-hours))
-                 (count-lights lamps-1-hours))
-        minutes (+ (* 5 (count-lights lamps-5-minutes))
-                   (count-lights lamps-1-minutes))
-        seconds (invert-seconds (count-lights lamps-seconds))]
+        hours (+ (* 5 (num-lights lamps-5-hours))
+                 (num-lights lamps-1-hours))
+        minutes (+ (* 5 (num-lights lamps-5-minutes))
+                   (num-lights lamps-1-minutes))
+        seconds (invert-seconds (num-lights lamps-seconds))]
     (LocalTime/of hours minutes seconds)))
