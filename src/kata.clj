@@ -1,5 +1,6 @@
 (ns kata
+  (:require [clojure.tools.logging :as log])
   (:gen-class))
 
 (defn -main [& _args]
-  (println "Hello, World!"))
+  (log/info "Hello, World!"))
