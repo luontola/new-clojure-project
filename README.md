@@ -1,5 +1,7 @@
 # Bug in JEP 483: Ahead-of-Time Class Loading & Linking
 
+> Update 2025-05-20: This has been fixed in Java 25 early-access build b23. See https://bugs.openjdk.org/browse/JDK-8354890
+
 When [the code](src/kata.clj) requires the `clojure.tools.logging` namespace, an "Archive heap points to a static field
 that may hold a different value at runtime" error happens during the `-XX:AOTMode=create` step.
 
